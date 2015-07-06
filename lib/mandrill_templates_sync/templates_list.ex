@@ -1,0 +1,28 @@
+defmodule MandrillTemplatesSync.TemplatesList do
+  @api_endpoint "https://mandrillapp.com/api/1.0/"
+
+
+  def fetch(key) do
+    list_url(key)
+      |> HTTPoison.get()
+      |> handle_response
+  end
+
+  defp list_url(key) do
+    "#{@api_endpoint}/templates/list.json?key=#{key}"
+  end
+
+  defp handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
+    IO.puts body
+  end
+
+  defp handle_response({:ok, _}) do
+    IO.puts "Error fetching list of templates from Mandrill. Possible reasons:"
+    IO.puts "- Mandrill API is down (check http://status.mandrillapp.com)"
+    IO.puts "- Your Internet connection is down"
+    IO.puts "- The key you passed is invalid"
+
+    System.halt(2)
+  end
+end
+
