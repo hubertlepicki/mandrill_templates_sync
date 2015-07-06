@@ -1,0 +1,2 @@
+defmodule MandrillTemplatesSync do
+end
