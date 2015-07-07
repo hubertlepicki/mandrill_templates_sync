@@ -16,6 +16,7 @@ defmodule MandrillTemplatesSync.Publisher do
       IO.puts "Template synced successfully: #{template.name}"
     else
       IO.puts "Error while syncing template: #{template.name}"
+      IO.puts "Is your destination API key valid?"
     end
   end
 
@@ -46,7 +47,7 @@ defmodule MandrillTemplatesSync.Publisher do
     true
   end
 
-  defp handle_response({:ok, _}) do
+  defp handle_response({_, _}) do
     false
   end
 end

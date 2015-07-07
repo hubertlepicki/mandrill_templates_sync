@@ -1,4 +1,7 @@
 defmodule MandrillTemplatesSync.Cli do
+  alias MandrillTemplatesSync.Publisher
+  alias MandrillTemplatesSync.TemplatesList
+
   def run(argv) do
     argv
       |> parse_args
@@ -20,9 +23,7 @@ defmodule MandrillTemplatesSync.Cli do
   end
 
   def process([source_key, destination_key]) do
-    MandrillTemplatesSync.Publisher.publish(
-      MandrillTemplatesSync.TemplatesList.fetch(source_key),
-      destination_key
-    )
+    TemplatesList.fetch(source_key)
+      |> Publisher.publish(destination_key)
   end
 end
