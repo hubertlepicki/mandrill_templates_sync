@@ -15,12 +15,14 @@ defmodule MandrillTemplatesSync.Cli do
     end
   end
 
-  defp process(:help) do
+  def process(:help) do
     IO.puts "Usage: mandrill_templates_sync --source-key=KEY1 --destination-key=KEY2"
   end
 
-  defp process([source_key, destination_key]) do
-    MandrillTemplatesSync.TemplatesList.fetch(source_key)
-      # |> MandrillTemplatesSync.
+  def process([source_key, destination_key]) do
+    MandrillTemplatesSync.Publisher.publish(
+      MandrillTemplatesSync.TemplatesList.fetch(source_key),
+      destination_key
+    )
   end
 end

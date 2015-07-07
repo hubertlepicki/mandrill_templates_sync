@@ -1,4 +1,5 @@
 defmodule MandrillTemplatesSync.TemplatesList do
+  alias MandrillTemplatesSync.Template
   @api_endpoint "https://mandrillapp.com/api/1.0/"
 
 
@@ -13,7 +14,7 @@ defmodule MandrillTemplatesSync.TemplatesList do
   end
 
   defp handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
-    IO.puts body
+    Poison.decode!(body, as: [Template])
   end
 
   defp handle_response({:ok, _}) do
