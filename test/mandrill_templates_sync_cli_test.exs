@@ -25,6 +25,11 @@ defmodule MandrillTemplatesSyncCliTest do
     assert parse_args(["--source-key", "KEY1", "--destination-key", "KEY2"]) == ["KEY1", "KEY2"]
   end
 
+  test "should recognize one account synchronization options" do
+    assert parse_args(["--account-key", "KEY", "--from-postfix", "staging", "--to-postfix", "production"]) 
+      == ["KEY", "staging", "production"]
+  end
+
   test "seeing help message" do
     fun = fn ->
       run([])

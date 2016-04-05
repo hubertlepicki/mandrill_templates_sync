@@ -1,6 +1,7 @@
 defmodule MandrillTemplatesSync.Cli do
   alias MandrillTemplatesSync.Publisher
   alias MandrillTemplatesSync.TemplatesList
+  alias MandrillTemplatesSync.AccountTemplatesDuplicator
 
   def run(argv) do
     argv
@@ -14,6 +15,7 @@ defmodule MandrillTemplatesSync.Cli do
     case parse do
       { [help: true], _, _ } -> :help
       { [ source_key: source, destination_key: dest ], _, _ } -> [ source, dest ]
+      { [ account_key: key, from_postfix: from, to_postfix: to ], _, _ } -> [ key, from, to ]
       _                      -> :help
     end
   end
@@ -25,5 +27,9 @@ defmodule MandrillTemplatesSync.Cli do
   def process([source_key, destination_key]) do
     TemplatesList.fetch(source_key)
       |> Publisher.publish(destination_key)
+  end
+
+  def process([key, from, to]) do
+    AccountTemplatesDuplicator.duplicate(key, from, to)
   end
 end

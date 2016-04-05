@@ -6,7 +6,16 @@ defmodule MandrillTemplatesSync.TemplatesList do
   def fetch(key) do
     list_url(key)
       |> HTTPoison.get()
-      |> handle_response
+      |> handle_response()
+  end
+
+  def fetch_with_postfix(postfix, key) do
+    fetch(key)
+      |> select_with_postfix(postfix)
+  end
+
+  defp select_with_postfix(templates, postfix) do
+    Enum.filter(templates, &(String.ends_with?(&1.name, "-#{postfix}")))
   end
 
   defp list_url(key) do
