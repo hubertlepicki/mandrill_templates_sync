@@ -1,11 +1,10 @@
 defmodule MandrillTemplatesSync.Publisher do
-  alias MandrillTemplatesSync.Template
   @api_endpoint "https://mandrillapp.com/api/1.0/"
 
 
   def publish(templates, key) do
     templates
-      |> Enum.each &(publish_template(&1, key))
+      |> Enum.each( &(publish_template(&1, key)) )
   end
 
   defp publish_template(template, key) do
@@ -29,6 +28,7 @@ defmodule MandrillTemplatesSync.Publisher do
       subject: template.publish_subject,
       code: template.publish_code,
       text: template.publish_text,
+      labels: template.labels,
       publish: true
     }
 
