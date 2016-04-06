@@ -15,7 +15,7 @@ defmodule MandrillTemplatesSync.Cli do
     case parse do
       { [help: true], _, _ } -> :help
       { [ source_key: source, destination_key: dest ], _, _ } -> [ source, dest ]
-      { [ account_key: key, from_postfix: from, to_postfix: to ], _, _ } -> [ key, from, to ]
+      { [ account_key: key, from_env: from, to_env: to ], _, _ } -> [ key, from, to ]
       _                      -> :help
     end
   end

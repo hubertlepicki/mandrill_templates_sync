@@ -9,13 +9,13 @@ defmodule MandrillTemplatesSync.TemplatesList do
       |> handle_response()
   end
 
-  def fetch_with_postfix(postfix, key) do
+  def fetch_for_env(env, key) do
     fetch(key)
-      |> select_with_postfix(postfix)
+      |> select_for_env(env)
   end
 
-  defp select_with_postfix(templates, postfix) do
-    Enum.filter(templates, &(String.ends_with?(&1.name, "-#{postfix}")))
+  defp select_for_env(templates, env) do
+    Enum.filter(templates, &String.ends_with?(&1.name, "[#{env}]"))
   end
 
   defp list_url(key) do
