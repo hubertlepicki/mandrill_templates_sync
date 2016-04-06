@@ -26,7 +26,7 @@ defmodule MandrillTemplatesSyncCliTest do
   end
 
   test "should recognize one account synchronization options" do
-    assert parse_args(["--account-key", "KEY", "--from-postfix", "staging", "--to-postfix", "production"]) 
+    assert parse_args(["--account-key", "KEY", "--from-env", "staging", "--to-env", "production"]) 
       == ["KEY", "staging", "production"]
   end
 
